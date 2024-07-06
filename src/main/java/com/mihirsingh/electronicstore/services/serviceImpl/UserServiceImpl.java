@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mihirsingh.electronicstore.dtos.UserDto;
 import com.mihirsingh.electronicstore.entities.User;
+import com.mihirsingh.electronicstore.exceptions.ResourceNotFoundException;
 import com.mihirsingh.electronicstore.repositories.UserRepository;
 import com.mihirsingh.electronicstore.services.UserService;
 
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updaUserDto(UserDto userDto, String user_id) {
         User user = userRepository.findById(user_id)
-                .orElseThrow(() -> new RuntimeException("Error!! Given USER ID not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error!! Given USER ID not found"));
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
         user.setAbout(userDto.getPassword());
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserDto(String user_id) {
         User user = userRepository.findById(user_id)
-                .orElseThrow(() -> new RuntimeException("Error!! Given USER ID not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error!! Given USER ID not found"));
 
         userRepository.delete(user);
 
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getAUserById(String user_id) {
         User userId = userRepository.findById(user_id)
-                .orElseThrow(() -> new RuntimeException("Error!! Given USER ID not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error!! Given USER ID not found"));
         UserDto userDtoId = entitiyToDto(userId);
         return userDtoId;
     }
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
     public UserDto getUserByemail(String email) {
         // TODO Auto-generated method stub
         User userEmail = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Error!! Given Email not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Error!! Given Email not found"));
         UserDto dtoUserEmail = entitiyToDto(userEmail);
         return dtoUserEmail;
     }

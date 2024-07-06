@@ -70,5 +70,5 @@ public class UserController {
         List<UserDto> searchUser = userService.searchUser(keyword);
         return new ResponseEntity<List<UserDto>>(searchUser, HttpStatus.OK);
     }
-
+;
 }
